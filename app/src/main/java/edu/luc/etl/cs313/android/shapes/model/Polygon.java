@@ -6,7 +6,7 @@ import java.util.List;
  * A special case of a group consisting only of Points.
  *
  */
-public class Polygon extends Group {
+public final class Polygon extends Group {
 
     public Polygon(final Point... points) {
         super(points);

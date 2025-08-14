@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * A composite for grouping edu.luc.etl.cs313.android.shapes.model.
  */
-public class Group implements Shape {
+public non-sealed class Group implements Shape {
 
     protected final List<? extends Shape> shapes;
 

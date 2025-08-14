@@ -4,7 +4,7 @@ package edu.luc.etl.cs313.android.shapes.model;
  * A decorator indicating that a shape should be drawn as a filled shape instead
  * of an outlined one.
  */
-public class Fill implements Shape {
+public final class Fill implements Shape {
 
     protected final Shape shape;
 

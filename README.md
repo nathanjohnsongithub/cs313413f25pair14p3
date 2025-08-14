@@ -26,9 +26,9 @@ In IntelliJ: `Run > Run app`
 
 ## Unit tests (there are no Android tests for shapes)
 
-In IntelliJ's Android view:
+In IntelliJ's Project view:
 
-* right-click on `app/java/edu...shapes (test)`, then choose `Run Tests in edu...`
+* right-click on `app/java/edu...shapes test (unitTest)`, then choose `Run Tests in shapes...`
 
 You can also use Gradle in a Terminal window:
 

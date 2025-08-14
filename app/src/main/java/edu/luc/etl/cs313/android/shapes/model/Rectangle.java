@@ -3,7 +3,7 @@ package edu.luc.etl.cs313.android.shapes.model;
 /**
  * A rectangle with specified width and height.
  */
-public class Rectangle implements Shape {
+public final class Rectangle implements Shape {
 
     protected final int width, height;
 

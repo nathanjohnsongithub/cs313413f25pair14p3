@@ -3,7 +3,7 @@ package edu.luc.etl.cs313.android.shapes.model;
 /**
  * A decorator for specifying a shape's location.
  */
-public class Location implements Shape {
+public non-sealed class Location implements Shape {
 
     protected final int x, y;
 

@@ -3,7 +3,7 @@ package edu.luc.etl.cs313.android.shapes.model;
 /**
  * A circle with a specified radius.
  */
-public class Circle implements Shape {
+public final class Circle implements Shape {
 
     protected final int radius;
 
