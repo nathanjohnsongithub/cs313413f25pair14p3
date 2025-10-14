@@ -26,19 +26,23 @@ public class Draw implements Visitor<Void> {
 
     @Override
     public Void onCircle(final Circle c) {
-        canvas.drawCircle(100, 100, c.getRadius(), paint);
+        canvas.drawCircle(0, 0, c.getRadius(), paint);
         return null;
     }
 
     @Override
     public Void onStrokeColor(final StrokeColor c) {
-        canvas.drawColor(c.getColor());
+        paint.setColor(c.getColor());
+        c.getShape().accept(this);
+        paint.setColor(0); //Idk what a good default color is
         return null;
     }
 
     @Override
     public Void onFill(final Fill f) {
-
+        paint.setStyle(Style.FILL_AND_STROKE);
+        f.getShape().accept(this);
+        paint.setStyle(Style.STROKE);
         return null;
     }
 
@@ -66,7 +70,9 @@ public class Draw implements Visitor<Void> {
 
     @Override
     public Void onOutline(Outline o) {
-
+        paint.setStyle(Style.STROKE);
+        o.getShape().accept(this);
+        paint.setStyle(Style.STROKE);
         return null;
     }
 
