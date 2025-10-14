@@ -1,5 +1,8 @@
 package edu.luc.etl.cs313.android.shapes.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A shape visitor for calculating the bounding box, that is, the smallest
  * rectangle containing the shape. The resulting bounding box is returned as a
@@ -17,19 +20,21 @@ public class BoundingBox implements Visitor<Location> {
 
     @Override
     public Location onFill(final Fill f) {
-        return null;
+        return f.getShape().accept(this);
     }
 
     @Override
     public Location onGroup(final Group g) {
-
-        return null;
+        for(Shape shape : g.getShapes()) {
+            shape.accept(this);
+        }
+    return null;
     }
 
     @Override
     public Location onLocation(final Location l) {
-
-        return null;
+        //get the shape from l, find its bounding box, then get the rectangle from that bounding box
+        return new Location(l.getX(), l.getY(), l.getShape().accept(this).getShape());
     }
 
     @Override
@@ -39,16 +44,34 @@ public class BoundingBox implements Visitor<Location> {
 
     @Override
     public Location onStrokeColor(final StrokeColor c) {
-        return null;
+        return c.getShape().accept(this);
     }
 
     @Override
     public Location onOutline(final Outline o) {
-        return null;
+        return o.getShape().accept(this);
     }
 
     @Override
     public Location onPolygon(final Polygon s) {
-        return null;
+        int minx = Integer.MAX_VALUE;
+        int maxx = -1;
+        int miny = Integer.MAX_VALUE;
+        int maxy = -1;
+        for(Point point : s.getPoints()) {
+            if(point.getX() > maxx) {
+                maxx = point.getX();
+            }
+            if(point.getX() < minx) {
+                minx = point.getX();
+            }
+            if(point.getY() > maxy) {
+                maxy = point.getY();
+            }
+            if(point.getY() < miny) {
+                miny = point.getY();
+            }
+        }
+        return new Location(minx, miny, new Rectangle(maxx - minx, maxy - miny));
     }
 }
