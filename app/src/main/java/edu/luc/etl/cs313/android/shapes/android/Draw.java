@@ -3,7 +3,6 @@ package edu.luc.etl.cs313.android.shapes.android;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
-import android.graphics.Rect;
 
 import edu.luc.etl.cs313.android.shapes.model.*;
 
@@ -11,8 +10,6 @@ import edu.luc.etl.cs313.android.shapes.model.*;
  * A Visitor for drawing a shape to an Android canvas.
  */
 public class Draw implements Visitor<Void> {
-
-    // TODO entirely your job (except onCircle)
 
     private final Canvas canvas;
 
@@ -78,9 +75,26 @@ public class Draw implements Visitor<Void> {
 
     @Override
     public Void onPolygon(final Polygon s) {
-
-        final float[] pts = null;
-        canvas.drawLines(pts, paint);
+        final var points = s.getPoints();
+        final int size = points.size();
+        // Polygons with only one point or no points are not drawn
+        if (size < 2) {
+            return null;
+        }
+        // Create an array of line segments, each defined by 4 floats (x1, y1, x2, y2)
+        // There are as many segments as there are points (the last point connects to the first
+        final float[] segments = new float[size * 4];
+        int index = 0;
+        for (int i = 0; i < size; i++) {
+            final Point start = points.get(i);
+            final Point end = points.get((i + 1) % size);
+            segments[index++] = start.getX();
+            segments[index++] = start.getY();
+            segments[index++] = end.getX();
+            segments[index++] = end.getY();
+        }
+        // Draw all the line segments
+        canvas.drawLines(segments, paint);
         return null;
     }
 }
